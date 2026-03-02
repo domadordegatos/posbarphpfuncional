@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         10.4.32-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             12.5.0.6677
+-- HeidiSQL Versión:             12.6.0.6765
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -14,27 +14,22 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- Volcando estructura de base de datos para posbar
-CREATE DATABASE IF NOT EXISTS `posbar` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci */;
-USE `posbar`;
-
 -- Volcando estructura para tabla posbar.categorias
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(50) NOT NULL DEFAULT '0',
   `estado` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- Volcando datos para la tabla posbar.categorias: ~6 rows (aproximadamente)
 INSERT INTO `categorias` (`id_categoria`, `descripcion`, `estado`) VALUES
-	(1, 'alcoholicas', 1),
-	(2, 'energizantes', 1),
-	(3, 'hidratantes', 1),
 	(4, 'comidas', 1),
 	(5, 'drogas', 1),
-	(6, 'OTROS', 0);
+	(6, 'OTROS', 0),
+	(7, 'alcoholicas', 1),
+	(8, 'energizantes', 1),
+	(9, 'hidratantes', 1);
 
 -- Volcando estructura para tabla posbar.movimiento
 CREATE TABLE IF NOT EXISTS `movimiento` (
@@ -53,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `movimiento` (
   KEY `FK_movimiento_productos` (`producto_id`),
   CONSTRAINT `FK_movimiento_productos` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_movimiento_tipo_transaccion` FOREIGN KEY (`tipo_transaccion`) REFERENCES `tipo_transaccion` (`id_transaccion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Volcando datos para la tabla posbar.movimiento: ~39 rows (aproximadamente)
+-- Volcando datos para la tabla posbar.movimiento: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla posbar.productos
 CREATE TABLE IF NOT EXISTS `productos` (
@@ -66,12 +61,50 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `cantidad_existente` int(11) NOT NULL DEFAULT 0,
   `precio_unitario` double NOT NULL DEFAULT 0,
   `minimo_stock` int(11) NOT NULL DEFAULT 0,
+  `codigo` double NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_producto`),
   KEY `FK_productos_categorias` (`categoria`),
   CONSTRAINT `FK_productos_categorias` FOREIGN KEY (`categoria`) REFERENCES `categorias` (`id_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Volcando datos para la tabla posbar.productos: ~13 rows (aproximadamente)
+-- Volcando datos para la tabla posbar.productos: ~36 rows (aproximadamente)
+INSERT INTO `productos` (`id_producto`, `nombre_producto`, `categoria`, `estado`, `cantidad_existente`, `precio_unitario`, `minimo_stock`, `codigo`) VALUES
+	(3, 'cocacola 1.5 lt', 9, 1, 0, 7000, 0, 7709183732),
+	(4, 'coca cola 1 lt', 9, 1, 0, 5000, 0, 7709183733),
+	(5, 'coca cola 400 mg', 9, 1, 0, 3000, 0, 7709183734),
+	(6, 'soda personal', 9, 1, 0, 3000, 0, 7709183735),
+	(7, 'botella de agua', 9, 1, 0, 2500, 0, 7709183736),
+	(8, 'btella de agua Gas', 9, 1, 0, 2500, 0, 7709183737),
+	(9, 'jarra guarapo', 9, 1, 0, 5000, 0, 7709183738),
+	(10, 'jarra limonada', 9, 1, 0, 5000, 0, 7709183739),
+	(11, 'cerveza personal', 9, 1, 0, 4000, 0, 7709183740),
+	(12, 'cerveza six', 9, 1, 0, 24000, 0, 7709183741),
+	(13, 'jarra guarapo grande', 9, 1, 0, 7000, 0, 7709183744),
+	(14, 'jarra limonada grande', 9, 1, 0, 7000, 0, 7709183745),
+	(15, 'vaso limonada', 9, 1, 0, 2000, 0, 7709183750),
+	(16, 'vaso guarapo', 9, 1, 0, 2000, 0, 7709183751),
+	(17, 'tinto grande', 9, 1, 0, 2000, 0, 7709183754),
+	(18, 'tinto pequeño', 9, 1, 0, 1500, 0, 7709183755),
+	(19, 'Chicharrón 20k', 7, 1, 0, 20000, 0, 7709183720),
+	(20, 'Chicharrón 25k', 7, 1, 0, 25000, 0, 7709183721),
+	(21, 'Chicharrón 30k', 7, 1, 0, 30000, 0, 7709183722),
+	(22, 'Chicharrón 35k', 7, 1, 0, 35000, 0, 7709183723),
+	(23, 'costillitas', 7, 1, 0, 25000, 0, 7709183728),
+	(24, 'salchicharron', 7, 1, 0, 30000, 0, 7709183730),
+	(25, 'pulpo', 7, 1, 0, 60000, 0, 7709183731),
+	(26, 'porcheta 60k', 7, 1, 0, 60000, 0, 7709183742),
+	(27, 'porcheta 50k', 7, 1, 0, 50000, 0, 7709183743),
+	(28, 'bastimento', 7, 1, 0, 14000, 0, 7709183746),
+	(29, 'empanada chicharron', 7, 1, 0, 3000, 0, 7709183747),
+	(30, 'empanada pollo', 7, 1, 0, 3000, 0, 7709183748),
+	(31, 'marranitas', 7, 1, 0, 3500, 0, 7709183749),
+	(32, 'vastimento con arepa', 7, 1, 0, 18000, 0, 7709183752),
+	(33, 'carimañola chicharron', 7, 1, 0, 3500, 0, 7709183753),
+	(34, 'guacamole', 8, 1, 0, 2000, 0, 7709183724),
+	(35, 'patacones', 8, 1, 0, 3000, 0, 7709183725),
+	(36, 'yuca', 8, 1, 0, 2000, 0, 7709183726),
+	(37, 'papa frita', 8, 1, 0, 5000, 0, 7709183727),
+	(38, 'ensalada', 8, 1, 0, 3000, 0, 7709183729);
 
 -- Volcando estructura para tabla posbar.tipo_transaccion
 CREATE TABLE IF NOT EXISTS `tipo_transaccion` (
